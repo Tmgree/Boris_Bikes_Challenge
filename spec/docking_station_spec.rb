@@ -41,6 +41,12 @@ describe DockingStation do
     expect{ station.dock(Bike.new) }.to raise_error 'Docking Station is Full'
   end
 
+  it 'Must display the number of bikes stored in a docking station' do
+    station = DockingStation.new(28)
+    25.times { station.dock(Bike.new) }
+    expect( station.dock_size ).to eq(25)
+  end
+
   it 'must not release a broken bike' do
     bike=Bike.new
     bike.report_broken
