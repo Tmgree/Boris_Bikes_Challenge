@@ -16,7 +16,7 @@ class DockingStation
       raise 'No bikes available'
     else
       dock_bike_broken
-      @bikes.pop
+      @bikes.slice(dock_size-1)
     end
   end
 
@@ -41,7 +41,7 @@ class DockingStation
   end
 
   def dock_bike_broken
-    if @bikes[0].broken == true
+    if @bikes[dock_size-1].broken == true
       5
     else
       6

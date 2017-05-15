@@ -22,6 +22,14 @@ describe DockingStation do
     expect(subject.bikes[0]).to eq bike
   end
 
+  it 'removes the most recently docked bike' do
+    bike1=Bike.new
+    bike2=Bike.new
+    subject.dock(bike1)
+    subject.dock(bike2)
+    expect( subject.release_bike ).to eq bike2 
+  end
+
   it 'raises an error when there are no bikes available' do
       expect { subject.release_bike }.to raise_error 'No bikes available'
   end
