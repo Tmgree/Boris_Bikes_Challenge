@@ -2,11 +2,11 @@
 
 This is my solo run through of the Boris Bikes challenge which we covered in week 1 of Makers' Academy [boris-bikes-challenge](https://github.com/Tmgree/boris_bikes). I have kept my original attempt untouched to show how far I have come since starting to develop.
 
-##Brief
+## Brief
 
 London's Boris Bikes (well, 'Santander Cycles') are awesome. For a small fee, anyone can hire out a bike and ride it around London. Bikes are located at Docking Stations dotted throughout the city. Based on the User Stories recreate, using Ruby and Rspec, a well tested Boris Bike docking system.
 
-###User Stories
+### User Stories
 
 ```
 As a person,
