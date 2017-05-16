@@ -48,6 +48,16 @@ describe DockingStation do
     expect( station.dock_size ).to eq(25)
   end
 
+  it 'must count number of working bikes stored in docking station' do
+    18.times { subject.dock(Bike.new) }
+    expect(subject.working_bikes).to eq(18)
+  end
+
+  it 'must count number of broken bikes stored in docking station' do
+    18.times { subject.dock(Bike.new) }
+    expect(subject.broken_bikes).to eq(0)
+  end
+
   it 'must not release a broken bike' do
     bike=Bike.new
     bike.report_broken
