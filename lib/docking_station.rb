@@ -15,8 +15,7 @@ class DockingStation
     if empty?
       raise 'No bikes available'
     else
-      dock_bike_broken
-      @bikes.slice(dock_size-1)
+      @bikes.slice(identify_working_bike)
     end
   end
 
@@ -40,12 +39,14 @@ class DockingStation
     @bikes.length
   end
 
-  def dock_bike_broken
-    if @bikes[dock_size-1].broken == true
-      5
-    else
-      6
-    end
+  def identify_working_bike
+
+  i=0;
+
+  until @bikes[i].broken == false do
+    i=i+1
+  end
+  i
   end
 
 
