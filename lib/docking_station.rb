@@ -45,19 +45,16 @@ class DockingStation
   end
 
   def identify_working_bike
+    i=0;
 
-  i=0;
-
-  until @bikes[i].broken == false do
-    i=i+1
-  end
-  i
+    until @bikes[i].broken == false do
+      i=i+1
+    end
+    i
   end
 
   def no_working_bikes?
-    for i in 0...(@bikes.length) do
-        @bikes[i].broken == true
-    end
+    @working_bikes == 0
   end
 
   def add_to_counter(bike)
@@ -68,22 +65,6 @@ class DockingStation
     end
   end
 
-private
-  def number_of_working_bikes
-    x=0;
-    for i in 0...(@bikes.length-1) do
-      count_working_bikes(i,x)
-    end
-
-  end
-
-  def count_working_bikes(i,x)
-    if @bikes[i].broken == false
-      x=x+1
-    else
-      x
-    end
-  end
 
 
 end
