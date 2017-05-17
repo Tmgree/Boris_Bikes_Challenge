@@ -19,7 +19,7 @@ class DockingStation
     if empty? || no_working_bikes?
       raise 'No bikes available'
     else
-      @bikes.slice(identify_working_bike)
+      @bikes.slice(@working_bikes)
     end
   end
 
@@ -42,15 +42,6 @@ class DockingStation
 
   def dock_size
     @bikes.length
-  end
-
-  def identify_working_bike
-    i=0;
-
-    until @bikes[i].broken == false do
-      i=i+1
-    end
-    i
   end
 
   def no_working_bikes?

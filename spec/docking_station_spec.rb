@@ -74,4 +74,11 @@ describe DockingStation do
     expect(subject.identify_working_bike).to eq(15)
   end
 
+  it 'must identify that there are no working bikes docked' do
+    bike=Bike.new
+    bike.report_broken
+    subject.dock(bike)
+    expect(subject.no_working_bikes?).to eq(true)
+  end
+
 end
