@@ -113,6 +113,7 @@ describe DockingStation do
   describe '#remove_from_counter' do
 
     it { is_expected.to respond_to(:remove_from_counter) }
+
   end
 
   describe '#bikes' do
@@ -153,6 +154,12 @@ describe DockingStation do
       expect(subject.working_bikes).to eq(18)
     end
 
+  end
+
+  describe '#working_bikes_array' do
+
+    it { is_expected.to respond_to(:working_bikes_array) }
+    
   end
 
   describe '#broken_bikes' do
