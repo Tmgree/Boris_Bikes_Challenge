@@ -9,6 +9,12 @@ describe DockingStation do
       expect(subject).to respond_to :release_bike
     end
 
+    it 'must release a bike' do
+      bike=Bike.new
+      subject.dock(bike)
+      expect(subject.release_bike).to eq bike
+    end
+
     it 'raises an error when there are no bikes available' do
         expect { subject.release_bike }.to raise_error 'No bikes available'
     end
@@ -35,6 +41,13 @@ describe DockingStation do
       station = DockingStation.new(50)
       50.times { station.dock(Bike.new) }
       expect{ station.dock(Bike.new) }.to raise_error 'Docking Station is Full'
+    end
+
+    it 'must accept a returning working bike' do
+      bike=Bike.new
+      subject.dock(bike)
+      subject.release_bike
+      expect(subject.dock(bike)).to eq [bike]
     end
 
   end
@@ -82,6 +95,8 @@ describe DockingStation do
 
   describe '#add_to_counter' do
 
+    it { is_expected.to respond_to(:add_to_counter) }
+
     it 'must add 1 to working bikes if a working bike is docked' do
       bike=Bike.new
       expect(subject.add_to_counter(bike)).to eq(1)
@@ -95,6 +110,11 @@ describe DockingStation do
 
   end
 
+  describe '#remove_from_counter' do
+
+    it { is_expected.to respond_to(:remove_from_counter) }
+  end
+
   describe '#bikes' do
 
     it { is_expected.to respond_to(:bikes) }
@@ -103,6 +123,13 @@ describe DockingStation do
       bike=Bike.new
       subject.dock(bike)
       expect(subject.bikes[0]).to eq bike
+    end
+
+    it 'should take not list a removed bike' do
+      bike=Bike.new
+      subject.dock(bike)
+      subject.release_bike
+      expect(subject.bikes).not_to include bike
     end
 
   end
@@ -137,6 +164,19 @@ describe DockingStation do
       expect(subject.broken_bikes).to eq(0)
     end
 
+  end
+
+  describe '#total' do
+    it { is_expected.to respond_to(:total) }
+
+    it 'must count total number of bikes stored in docking station' do
+      bike1=Bike.new
+      bike2=Bike.new
+      bike2.report_broken
+      subject.dock(bike1)
+      subject.dock(bike2)
+      expect(subject.total).to eq(2)
+    end
   end
 
 end
