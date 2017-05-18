@@ -5,6 +5,7 @@ class DockingStation
   attr_reader :bikes
   attr_reader :capacity
   attr_reader :working_bikes
+  attr_reader :working_bikes_array
   attr_reader :broken_bikes
   attr_reader :total
   DEFAULT_CAPACITY = 20
@@ -12,6 +13,7 @@ class DockingStation
   def initialize(capacity=DEFAULT_CAPACITY)
     @capacity = capacity
     @bikes=[]
+    @working_bikes_array=[]
     @working_bikes=0
     @broken_bikes=0
     @total=0
@@ -21,7 +23,7 @@ class DockingStation
     if empty? || no_working_bikes?
       raise 'No bikes available'
     else
-      remove_from_counter(bike)
+      #remove_from_counter(bike)
       @bikes.slice!(@working_bikes-1)
     end
   end
