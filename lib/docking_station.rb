@@ -4,28 +4,21 @@ class DockingStation
 
   attr_reader :bikes
   attr_reader :capacity
-  attr_reader :working_bikes
   attr_reader :working_bikes_array
-  attr_reader :broken_bikes
   attr_reader :broken_bikes_array
-  attr_reader :total
   DEFAULT_CAPACITY = 20
 
   def initialize(capacity=DEFAULT_CAPACITY)
     @capacity = capacity
     @bikes=[]
     @working_bikes_array=[]
-    @working_bikes=0
-    @broken_bikes=0
     @broken_bikes_array=[]
-    @total=0
   end
 
   def release_bike
     if empty? || no_working_bikes?
       raise 'No bikes available'
     else
-      #remove_from_counter(bike)
       @bikes.delete(remove_bike)
     end
   end
@@ -34,7 +27,6 @@ class DockingStation
     if full?
       raise 'Docking Station is Full'
     else
-      add_to_counter(bike)
       add_to_array(bike)
       @bikes.push(bike)
     end
@@ -60,24 +52,16 @@ class DockingStation
     @working_bikes_array.pop
   end
 
-  def add_to_counter(bike)
-    if bike.broken == false
-      @working_bikes +=1
-      @total +=1
-    else
-      @broken_bikes +=1
-      @total +=1
-    end
+  def working_bikes
+    @working_bikes_array.length
   end
 
-  def remove_from_counter(bike)
-    if bike.broken == false
-      @working_bikes -=1
-      @total -=1
-    else
-      @broken_bikes -=1
-      @total -=1
-    end
+  def broken_bikes
+    @broken_bikes_array.length
+  end
+
+  def total
+    @bikes.length
   end
 
   def add_to_array(bike)
@@ -87,8 +71,6 @@ class DockingStation
       @broken_bikes_array.push(bike)
     end
   end
-
-
 
 
 end

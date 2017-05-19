@@ -93,28 +93,42 @@ describe DockingStation do
 
   end
 
-  describe '#add_to_counter' do
+  describe '#working_bikes' do
 
-    it { is_expected.to respond_to(:add_to_counter) }
+    it { is_expected.to respond_to(:working_bikes) }
 
     it 'must add 1 to working bikes if a working bike is docked' do
       bike=Bike.new
-      expect(subject.add_to_counter(bike)).to eq(1)
+      subject.dock(bike)
+      expect(subject.working_bikes).to eq(1)
     end
+
+    it 'must count number of working bikes stored in docking station' do
+      18.times { subject.dock(Bike.new) }
+      expect(subject.working_bikes).to eq(18)
+    end
+
+  end
+
+
+  describe '#broken_bikes' do
+
+    it { is_expected.to respond_to(:broken_bikes) }
 
     it 'must add 1 to broken bikes if a broken bike is docked' do
       bike=Bike.new
       bike.report_broken
-      expect(subject.add_to_counter(bike)).to eq(1)
+      subject.dock(bike)
+      expect(subject.broken_bikes).to eq(1)
+    end
+
+    it 'must count number of broken bikes stored in docking station' do
+      18.times { subject.dock(Bike.new) }
+      expect(subject.broken_bikes).to eq(0)
     end
 
   end
 
-  describe '#remove_from_counter' do
-
-    it { is_expected.to respond_to(:remove_from_counter) }
-
-  end
 
   describe '#bikes' do
 
@@ -145,16 +159,6 @@ describe DockingStation do
 
   end
 
-  describe '#working_bikes' do
-
-    it { is_expected.to respond_to(:working_bikes) }
-
-    it 'must count number of working bikes stored in docking station' do
-      18.times { subject.dock(Bike.new) }
-      expect(subject.working_bikes).to eq(18)
-    end
-
-  end
 
   describe '#working_bikes_array' do
 
@@ -168,16 +172,7 @@ describe DockingStation do
 
   end
 
-  describe '#broken_bikes' do
 
-    it { is_expected.to respond_to(:broken_bikes) }
-
-    it 'must count number of broken bikes stored in docking station' do
-      18.times { subject.dock(Bike.new) }
-      expect(subject.broken_bikes).to eq(0)
-    end
-
-  end
 
   describe '#broken_bikes_array' do
 
