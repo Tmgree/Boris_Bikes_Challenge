@@ -26,7 +26,7 @@ class DockingStation
       raise 'No bikes available'
     else
       #remove_from_counter(bike)
-      @bikes.slice!(@working_bikes-1)
+      @bikes.delete(remove_bike)
     end
   end
 
@@ -53,7 +53,11 @@ class DockingStation
   end
 
   def no_working_bikes?
-    @working_bikes == 0
+    @working_bikes_array.length == 0
+  end
+
+  def remove_bike
+    @working_bikes_array.pop
   end
 
   def add_to_counter(bike)
@@ -83,6 +87,7 @@ class DockingStation
       @broken_bikes_array.push(bike)
     end
   end
+
 
 
 
