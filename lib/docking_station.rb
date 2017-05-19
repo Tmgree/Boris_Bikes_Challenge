@@ -7,6 +7,7 @@ class DockingStation
   attr_reader :working_bikes
   attr_reader :working_bikes_array
   attr_reader :broken_bikes
+  attr_reader :broken_bikes_array
   attr_reader :total
   DEFAULT_CAPACITY = 20
 
@@ -16,6 +17,7 @@ class DockingStation
     @working_bikes_array=[]
     @working_bikes=0
     @broken_bikes=0
+    @broken_bikes_array=[]
     @total=0
   end
 
@@ -33,6 +35,7 @@ class DockingStation
       raise 'Docking Station is Full'
     else
       add_to_counter(bike)
+      add_to_array(bike)
       @bikes.push(bike)
     end
   end
@@ -73,8 +76,12 @@ class DockingStation
     end
   end
 
-  def find_working_bike
-
+  def add_to_array(bike)
+    if bike.broken == false
+      @working_bikes_array.push(bike)
+    else
+      @broken_bikes_array.push(bike)
+    end
   end
 
 

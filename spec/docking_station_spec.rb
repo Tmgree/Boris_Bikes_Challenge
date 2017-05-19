@@ -159,7 +159,13 @@ describe DockingStation do
   describe '#working_bikes_array' do
 
     it { is_expected.to respond_to(:working_bikes_array) }
-    
+
+    it 'must store all working bikes docked in the station as a sub arry' do
+      bike=Bike.new
+      subject.dock(bike)
+      expect(subject.working_bikes_array).to include(bike)
+    end
+
   end
 
   describe '#broken_bikes' do
@@ -173,7 +179,21 @@ describe DockingStation do
 
   end
 
+  describe '#broken_bikes_array' do
+
+    it { is_expected.to respond_to(:broken_bikes_array) }
+
+    it 'must store all working bikes docked in the station as a sub arry' do
+      bike=Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect(subject.broken_bikes_array).to include(bike)
+    end
+
+  end
+
   describe '#total' do
+
     it { is_expected.to respond_to(:total) }
 
     it 'must count total number of bikes stored in docking station' do
@@ -184,6 +204,23 @@ describe DockingStation do
       subject.dock(bike2)
       expect(subject.total).to eq(2)
     end
+  end
+
+  describe '#add_to_array' do
+
+    it { is_expected.to respond_to(:add_to_array) }
+
+    it 'should store a working docked bike in the working_bikes_array' do
+      bike=Bike.new
+      expect(subject.add_to_array(bike)).to eq [bike]
+    end
+
+    it 'should store a broken docked bike in the broken_bikes_array' do
+      bike=Bike.new
+      bike.report_broken
+      expect(subject.add_to_array(bike)).to eq [bike]
+    end
+
   end
 
 end
