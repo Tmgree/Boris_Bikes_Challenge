@@ -97,15 +97,22 @@ describe DockingStation do
 
     it { is_expected.to respond_to(:working_bikes) }
 
+    it 'must count number of working bikes stored in docking station' do
+      18.times { subject.dock(Bike.new) }
+      expect(subject.working_bikes).to eq(18)
+    end
+
     it 'must add 1 to working bikes if a working bike is docked' do
       bike=Bike.new
       subject.dock(bike)
       expect(subject.working_bikes).to eq(1)
     end
 
-    it 'must count number of working bikes stored in docking station' do
-      18.times { subject.dock(Bike.new) }
-      expect(subject.working_bikes).to eq(18)
+    it 'must remove 1 to working bikes if a working bike is removed' do
+      bike=Bike.new
+      subject.dock(bike)
+      subject.release_bike
+      expect(subject.working_bikes).to eq(0)
     end
 
   end
@@ -115,16 +122,16 @@ describe DockingStation do
 
     it { is_expected.to respond_to(:broken_bikes) }
 
+    it 'must count number of broken bikes stored in docking station' do
+      18.times { subject.dock(Bike.new) }
+      expect(subject.broken_bikes).to eq(0)
+    end
+
     it 'must add 1 to broken bikes if a broken bike is docked' do
       bike=Bike.new
       bike.report_broken
       subject.dock(bike)
       expect(subject.broken_bikes).to eq(1)
-    end
-
-    it 'must count number of broken bikes stored in docking station' do
-      18.times { subject.dock(Bike.new) }
-      expect(subject.broken_bikes).to eq(0)
     end
 
   end
@@ -157,6 +164,11 @@ describe DockingStation do
       expect( subject.capacity ).to eq DockingStation::DEFAULT_CAPACITY
     end
 
+    it 'can change the default capacity' do
+      station=DockingStation.new(5)
+      expect(station.capacity).to eq(5)
+    end
+
   end
 
 
@@ -168,6 +180,13 @@ describe DockingStation do
       bike=Bike.new
       subject.dock(bike)
       expect(subject.working_bikes_array).to include(bike)
+    end
+
+    it 'must remove a bike if the bike is released from the docking station' do
+      bike=Bike.new
+      subject.dock(bike)
+      subject.release_bike
+      expect(subject.working_bikes_array).not_to include bike
     end
 
   end
@@ -198,6 +217,13 @@ describe DockingStation do
       subject.dock(bike1)
       subject.dock(bike2)
       expect(subject.total).to eq(2)
+    end
+
+    it 'must subtract a bike if a bike is released from the station'do
+    bike=Bike.new
+    subject.dock(bike)
+    subject.release_bike
+    expect(subject.total).to eq(0)
     end
   end
 
