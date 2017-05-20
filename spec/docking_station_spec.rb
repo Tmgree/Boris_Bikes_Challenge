@@ -10,7 +10,7 @@ describe DockingStation do
     end
 
     it 'must release a bike' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       expect(subject.release_bike).to eq bike
     end
@@ -20,8 +20,7 @@ describe DockingStation do
     end
 
     it 'must not release a broken bike' do
-      bike=Bike.new
-      bike.report_broken
+      bike=double(:bike, broken: true)
       subject.dock(bike)
       expect{subject.release_bike}.to raise_error 'No bikes available'
     end
@@ -33,18 +32,18 @@ describe DockingStation do
     it { is_expected.to respond_to(:dock).with(1).argument }
 
     it 'can dock a bike' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       expect(subject.dock(bike)).to eq [bike]
     end
 
     it 'allows the user to set their own capacity' do
       station = DockingStation.new(50)
-      50.times { station.dock(Bike.new) }
+      50.times { station.dock(bike=double(:bike, broken: false)) }
       expect{ station.dock(Bike.new) }.to raise_error 'Docking Station is Full'
     end
 
     it 'must accept a returning working bike' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       subject.release_bike
       expect(subject.dock(bike)).to eq [bike]
@@ -56,7 +55,7 @@ describe DockingStation do
 
     it 'should identify when the dock is full' do
       station=DockingStation.new(1)
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       station.dock(bike)
       expect(station.full?).to eq(true)
     end
@@ -76,7 +75,7 @@ describe DockingStation do
 
     it 'Must display the number of bikes stored in a docking station' do
       station = DockingStation.new(28)
-      25.times { station.dock(Bike.new) }
+      25.times { station.dock(bike=double(:bike, broken: false)) }
       expect( station.dock_size ).to eq(25)
     end
 
@@ -85,8 +84,7 @@ describe DockingStation do
   describe 'no_working_bikes?' do
 
     it 'must identify that there are no working bikes docked' do
-      bike=Bike.new
-      bike.report_broken
+      bike=double(:bike, broken: true)
       subject.dock(bike)
       expect(subject.no_working_bikes?).to eq(true)
     end
@@ -98,18 +96,18 @@ describe DockingStation do
     it { is_expected.to respond_to(:working_bikes) }
 
     it 'must count number of working bikes stored in docking station' do
-      18.times { subject.dock(Bike.new) }
+      18.times { subject.dock(bike=double(:bike, broken: false)) }
       expect(subject.working_bikes).to eq(18)
     end
 
     it 'must add 1 to working bikes if a working bike is docked' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       expect(subject.working_bikes).to eq(1)
     end
 
     it 'must remove 1 to working bikes if a working bike is removed' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       subject.release_bike
       expect(subject.working_bikes).to eq(0)
@@ -123,13 +121,12 @@ describe DockingStation do
     it { is_expected.to respond_to(:broken_bikes) }
 
     it 'must count number of broken bikes stored in docking station' do
-      18.times { subject.dock(Bike.new) }
+      18.times { subject.dock(bike=double(:bike, broken: false)) }
       expect(subject.broken_bikes).to eq(0)
     end
 
     it 'must add 1 to broken bikes if a broken bike is docked' do
-      bike=Bike.new
-      bike.report_broken
+      bike=double(:bike, broken: true)
       subject.dock(bike)
       expect(subject.broken_bikes).to eq(1)
     end
@@ -142,13 +139,13 @@ describe DockingStation do
     it { is_expected.to respond_to(:bikes) }
 
     it 'returns a docked bike' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       expect(subject.bikes[0]).to eq bike
     end
 
     it 'should take not list a removed bike' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       subject.release_bike
       expect(subject.bikes).not_to include bike
@@ -177,13 +174,13 @@ describe DockingStation do
     it { is_expected.to respond_to(:working_bikes_array) }
 
     it 'must store all working bikes docked in the station as a sub arry' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       expect(subject.working_bikes_array).to include(bike)
     end
 
     it 'must remove a bike if the bike is released from the docking station' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       subject.dock(bike)
       subject.release_bike
       expect(subject.working_bikes_array).not_to include bike
@@ -198,8 +195,7 @@ describe DockingStation do
     it { is_expected.to respond_to(:broken_bikes_array) }
 
     it 'must store all working bikes docked in the station as a sub arry' do
-      bike=Bike.new
-      bike.report_broken
+      bike=double(:bike, broken: true)
       subject.dock(bike)
       expect(subject.broken_bikes_array).to include(bike)
     end
@@ -211,16 +207,15 @@ describe DockingStation do
     it { is_expected.to respond_to(:total) }
 
     it 'must count total number of bikes stored in docking station' do
-      bike1=Bike.new
-      bike2=Bike.new
-      bike2.report_broken
+      bike1=double(:bike, broken: false)
+      bike2 = double(:bike, broken: true)
       subject.dock(bike1)
       subject.dock(bike2)
       expect(subject.total).to eq(2)
     end
 
     it 'must subtract a bike if a bike is released from the station'do
-    bike=Bike.new
+    bike=double(:bike, broken: false)
     subject.dock(bike)
     subject.release_bike
     expect(subject.total).to eq(0)
@@ -232,13 +227,12 @@ describe DockingStation do
     it { is_expected.to respond_to(:add_to_array) }
 
     it 'should store a working docked bike in the working_bikes_array' do
-      bike=Bike.new
+      bike=double(:bike, broken: false)
       expect(subject.add_to_array(bike)).to eq [bike]
     end
 
     it 'should store a broken docked bike in the broken_bikes_array' do
-      bike=Bike.new
-      bike.report_broken
+      bike=double(:bike, broken: true)
       expect(subject.add_to_array(bike)).to eq [bike]
     end
 
