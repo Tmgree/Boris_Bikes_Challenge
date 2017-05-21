@@ -15,4 +15,22 @@ describe Van do
 
   end
 
+  describe '#reset_docking_station' do
+
+    it 'must reset the bikes array' do
+      station=double(:DockingStation, bikes: [1], broken_bikes_array: [1])
+      expect(subject.reset_docking_station(station)).to eq []
+    end
+
+  end
+
+  describe '#reset_broken_bikes' do
+
+    it 'must reset the broken bikes array' do
+      station=double(:DockingStation, broken_bikes_array: [1])
+      expect(subject.reset_broken_bikes(station)).to eq []
+    end
+
+  end
+
 end
