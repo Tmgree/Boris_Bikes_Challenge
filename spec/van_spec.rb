@@ -7,7 +7,7 @@ describe Van do
     it 'must collect broken bikes from a docking station' do
       station=double(:DockingStation, broken_bikes_array: [1,2],
       reset_broken_bikes: [], reset_bikes: [])
-      subject.collect_bikes(station)
+      expect(subject.collect_bikes(station)).to eq [1,2]
     end
 
     it 'must raise an error if the docking station has no broken bikes docked' do

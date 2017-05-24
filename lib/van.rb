@@ -17,11 +17,15 @@ class Van
       take_bikes(docking_station)
       docking_station.reset_broken_bikes
       docking_station.reset_bikes
+      @broken_bikes_van
     end
   end
 
   def take_bikes(docking_station)
-    @broken_bikes_van.push(docking_station.broken_bikes_array.flatten)
+    for i in 0...(docking_station.broken_bikes_array.length) do
+      @broken_bikes_van.push(docking_station.broken_bikes_array[i])
+    end
+    @broken_bikes_van
   end
 
 end
