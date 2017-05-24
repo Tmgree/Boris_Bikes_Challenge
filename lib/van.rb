@@ -15,20 +15,13 @@ class Van
       raise 'No broken Bikes'
     else
       take_bikes(docking_station)
+      docking_station.reset_broken_bikes
+      docking_station.reset_bikes
     end
   end
 
   def take_bikes(docking_station)
-    @broken_bikes_van = docking_station.broken_bikes_array
-    reset_docking_station(docking_station)
-  end
-
-  def reset_docking_station(docking_station)
-    docking_station.bikes = docking_station.bikes - docking_station.broken_bikes_array
-  end
-
-  def reset_broken_bikes(docking_station)
-    docking_station.broken_bikes_array.clear
+    @broken_bikes_van.push(docking_station.broken_bikes_array.flatten)
   end
 
 end

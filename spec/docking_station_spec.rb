@@ -238,4 +238,26 @@ describe DockingStation do
 
   end
 
+  describe '#reset_bikes' do
+
+    it 'must reset the bikes array' do
+      bike=double(:bike, broken: true)
+      subject.dock(bike)
+      bike1=double(:bike, broken: false)
+      subject.dock(bike1)
+      expect(subject.reset_bikes).to eq [bike1]
+    end
+
+  end
+
+  describe '#reset_broken_bikes' do
+
+    it 'must reset the broken bikes array' do
+      bike=double(:bike, broken: true)
+      subject.dock(bike)
+      expect(subject.reset_broken_bikes).to eq []
+    end
+
+  end
+
 end

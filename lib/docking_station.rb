@@ -73,5 +73,12 @@ class DockingStation
     end
   end
 
+  def reset_broken_bikes
+    @broken_bikes_array.clear
+  end
+
+  def reset_bikes
+    @bikes = @working_bikes_array
+  end
 
 end

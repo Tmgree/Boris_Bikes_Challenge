@@ -5,7 +5,9 @@ describe Van do
   describe '#collect_bikes' do
 
     it 'must collect broken bikes from a docking station' do
-
+      station=double(:DockingStation, broken_bikes_array: [1,2],
+      reset_broken_bikes: [], reset_bikes: [])
+      subject.collect_bikes(station)
     end
 
     it 'must raise an error if the docking station has no broken bikes docked' do
@@ -15,22 +17,24 @@ describe Van do
 
   end
 
-  describe '#reset_docking_station' do
+  describe '#take_bikes' do
 
-    it 'must reset the bikes array' do
-      station=double(:DockingStation, bikes: [1], broken_bikes_array: [1])
-      expect(subject.reset_docking_station(station)).to eq []
+    it 'should fill the van with broken bikes' do
+      station=double(:DockingStation, broken_bikes_array: [1,2])
+      expect(subject.take_bikes(station)).to eq [1,2]
     end
 
   end
 
-  describe '#reset_broken_bikes' do
+  describe '#broken_bikes_van' do
 
-    it 'must reset the broken bikes array' do
-      station=double(:DockingStation, broken_bikes_array: [1])
-      expect(subject.reset_broken_bikes(station)).to eq []
+    it 'should store the broken bikes' do
+      bike=double(:Bike, broken: true)
+      station=double(:DockingStation, bikes: [bike], broken_bikes_array: [bike],
+      reset_broken_bikes: [], reset_bikes: [])
+      subject.collect_bikes(station)
+      expect(subject.broken_bikes_van).to eq [bike]
     end
 
   end
-
 end
