@@ -28,4 +28,8 @@ class Van
     @broken_bikes_van
   end
 
+  def reset_broken_bikes_van
+    @broken_bikes_van.clear
+  end
+
 end

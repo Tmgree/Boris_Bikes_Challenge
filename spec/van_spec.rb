@@ -37,4 +37,16 @@ describe Van do
     end
 
   end
+
+  describe '#reset_broken_bikes_van' do
+
+    it 'should reset the broken bikes stored in the van' do
+      bike=double(:Bike, broken: true)
+      station=double(:DockingStation, bikes: [bike], broken_bikes_array: [bike],
+      reset_broken_bikes: [], reset_bikes: [])
+      subject.collect_bikes(station)
+      expect(subject.reset_broken_bikes_van).to eq []
+    end
+
+  end
 end
