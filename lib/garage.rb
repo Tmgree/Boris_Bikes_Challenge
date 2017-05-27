@@ -8,6 +8,10 @@ class Garage
     @garage_bikes = []
   end
 
+  def fix_bikes(van)
+    
+  end
+
   def take_bikes_from_van(van)
 
     if van.broken_bikes_van == []

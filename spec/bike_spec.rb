@@ -8,28 +8,32 @@ describe Bike do
       expect(subject.broken).to eq(false)
     end
 
+    it 'should return false if bike is working' do
+      expect(subject.broken).to eq(false)
+    end
+
+    it 'should return true if bike is broken' do
+      subject.report_broken
+      expect(subject.broken).to eq(true)
+    end
+
   end
 
   describe '#report_broken' do
 
     it 'can be reported broken' do
-      subject.report_broken
-      expect(subject).to be_broken
+      expect(subject.report_broken).to eq true
     end
 
   end
 
-  describe '#broken?' do
+  describe '#fix' do
 
-    it 'should return false if bike is working' do
-      expect(subject.broken?).to eq(false)
-    end
-
-    it 'should return true if bike is broken' do
-      subject.report_broken
-      expect(subject.broken?).to eq(true)
+    it 'can be fixed' do
+      expect(subject.fix).to eq false
     end
 
   end
+
 
 end
