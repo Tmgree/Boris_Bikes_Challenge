@@ -49,4 +49,13 @@ describe Van do
     end
 
   end
+
+  describe '#take_bike' do
+
+    it 'should take a broken bike into the van' do
+      bike=double(:bike, broken: true)
+      expect(subject.take_bike(bike)).to eq [bike]
+    end
+  end
+
 end

@@ -30,4 +30,8 @@ class Van
     @bikes_van.clear
   end
 
+  def take_bike(bike)
+    @bikes_van.push(bike)
+  end
+
 end
