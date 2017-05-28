@@ -82,4 +82,13 @@ class DockingStation
     @bikes = @working_bikes_array
   end
 
+  def take_bikes_from_van(van)
+    for i in 0...(van.bikes_van.length) do
+      @bikes.push(van.bikes_van[i])
+      @working_bikes_array.push(van.bikes_van[i])
+      van.reset_broken_bikes_van
+    end
+    @bikes
+  end
+
 end

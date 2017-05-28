@@ -260,4 +260,13 @@ describe DockingStation do
 
   end
 
+  describe '#take_bikes_from_van' do
+
+    it 'must take the bikes from the van' do
+      van=double(:van, bikes_van: [1], reset_broken_bikes_van: [])
+      expect(subject.take_bikes_from_van(van)).to eq [1]
+    end
+
+  end
+
 end
