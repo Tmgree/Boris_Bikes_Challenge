@@ -16,4 +16,22 @@ describe Garage do
 
   end
 
+  describe '#take_bike' do
+
+    it 'should take a broken bike into the garage' do
+      bike=double(:bike, broken: true)
+      expect(subject.take_bike(bike)).to eq [bike]
+    end
+  end
+
+  describe '#fix_bikes' do
+
+    it 'should fix all bikes in the garage' do
+      bike=double(:bike, broken: true, fix: false)
+      subject.take_bike(bike)
+      expect(subject.fix_bikes).to eq [bike]
+    end
+
+  end
+
 end

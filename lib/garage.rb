@@ -8,8 +8,10 @@ class Garage
     @garage_bikes = []
   end
 
-  def fix_bikes(van)
-    
+  def fix_bikes
+    @garage_bikes.each do |i|
+      i.fix
+    end
   end
 
   def take_bikes_from_van(van)
@@ -24,6 +26,10 @@ class Garage
       @garage_bikes
     end
 
+  end
+
+  def take_bike(bike)
+    @garage_bikes.push(bike)
   end
 
 
