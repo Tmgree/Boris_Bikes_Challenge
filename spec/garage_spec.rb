@@ -34,4 +34,16 @@ describe Garage do
 
   end
 
+  describe '#add_bikes_to_van' do
+
+    it 'should add fixed bikes back to the van' do
+      van=double(:)
+      bike=double(:bike, broken: false)
+      subject.take_bike(bike)
+      expect()
+    end
+
+  end
+
+
 end

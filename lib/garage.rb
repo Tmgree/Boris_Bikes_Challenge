@@ -32,5 +32,18 @@ class Garage
     @garage_bikes.push(bike)
   end
 
+  def add_bikes_to_van(van)
+    for i in 0...(@garage_bikes.length) do
+      van.working_bikes_van.push(@garage_bikes[i])
+    end
+    @broken_bikes_van
+  end
+
+  def fix_bikes2(van)
+    van.bikes_van.each do |i|
+      i.fix
+    end
+  end
+
 
 end

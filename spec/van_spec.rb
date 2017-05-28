@@ -26,14 +26,14 @@ describe Van do
 
   end
 
-  describe '#broken_bikes_van' do
+  describe 'bikes_van' do
 
-    it 'should store the broken bikes' do
+    it 'should store the bikes' do
       bike=double(:Bike, broken: true)
       station=double(:DockingStation, bikes: [bike], broken_bikes_array: [bike],
       reset_broken_bikes: [], reset_bikes: [])
       subject.collect_bikes(station)
-      expect(subject.broken_bikes_van).to eq [bike]
+      expect(subject.bikes_van).to eq [bike]
     end
 
   end
